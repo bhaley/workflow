@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "file:///workflow_schema.json",
+    "title": "Workflow",
+    "description": "An iterable sequence of tasks",
+    "type": "object",
+    "properties": {
+        "workflow": {
+            "description": "Workflow object",
+            "type": "object",
+            "properties": {
+                "echo_output": {
+                    "description": "Flag: echo stdout and stderr?", 
+                    "type": "boolean"
+                },
+                "tasks": {
+                    "description": "List of Tasks", 
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "taskname": {
+                                "description": "Name of the task",
+                                "type": "string"
+                            },
+                            "iomap": {
+                                "description": "Mapping of outputs from previous task to inputs in the current task",
+                                "type": "object",
+                                "additionalProperties": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "required": ["taskname", "iomap"]
+                    }
+                }
+            },
+            "required": ["echo_output", "tasks"]
+        }
+    },
+    "required": ["workflow"]
+}

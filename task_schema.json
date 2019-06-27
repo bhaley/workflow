@@ -1,0 +1,82 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "file:///task_schema.json",
+    "title": "Task",
+    "description": "A discrete step in a workflow",
+    "definitions": {
+        "params": {
+            "description": "Dictionary of parameters", 
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+                "description": "Parameter properties",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "description": "Name of parameter type",
+                        "type": "string"
+                     },
+                     "value": {
+                         "description": "Name of parameter type",
+                         "type": ["string", "number", "array", "null"]
+                     },
+                     "label": {
+                         "description": "Description of the parameter",
+                         "type": "string"
+                     },
+                     "units": {
+                         "description": "Name of the measurement units",
+                         "type": "string"
+                     },
+                     "tags": {
+                         "description": "List of metadata",
+                         "type": "array",
+                         "items": {
+                             "type": "string"
+                         }
+                     }
+                 },
+                 "required": ["type", "value", "label", "units", "tags"]
+             }
+        }
+    },
+    "type": "object",
+    "properties": {
+        "task": {
+            "description": "Task object",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Unique name of the Task", 
+                    "type": "string"
+                },
+                "command": {
+                    "description": "Command string to execute Task", 
+                    "type": ["string", "null"]
+                },
+                "echo_output": {
+                    "description": "Flag: echo stdout and stderr?", 
+                    "type": "boolean"
+                },
+                "templates": {
+                    "description": "Map input file names to template names",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": ["string", "null"]
+                    }
+                },
+                "inputs": {
+                    "$ref": "#/definitions/params"
+                },
+                "outputs": {
+                    "$ref": "#/definitions/params"
+                }
+            },
+            "required": [
+                "name", "command", "echo_output", "templates", "inputs",
+                "outputs"
+            ]
+        }
+    },
+    "required": ["task"]
+}
